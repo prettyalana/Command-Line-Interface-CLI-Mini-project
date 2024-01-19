@@ -1,12 +1,11 @@
 class Game
-  attr_accessor :name, :answer, :again
-  # :over
+  attr_accessor :name, :answer, :over
 
   def initialize
     @player_name = name
     @player_answer = answer
-    # @over = false
-    @again = true
+    @over = false
+    # @again = true
   end
 
   def rules
@@ -142,6 +141,7 @@ class Game
     end
     
     puts "On to the next question..."
+    puts "\n"
     practice_question_two
   end #practice_question
 
@@ -198,8 +198,6 @@ class Game
           play_again_answer = ["y" , "yes" , "Yes" , "yes!" , "Yes!" , "YES" , "sure" , "Sure"]
       break if play_again.include?(play_again_answer[0])
       end
-      # Game.new
-    
         elsif
           @player_answer == level_one_answer[0] || @player_answer == level_one_answer[1] || @player_answer == level_one_answer[2]
           correct_lvl_one
@@ -219,6 +217,10 @@ class Game
       puts "Awesome! Let's get started!"
     elsif @player_answer.include?(no_answer[0])
       puts "Are you sure?"
+      @player_answer = gets.chomp
+      if @player_answer.include?(yes_answer[0])
+        exit
+      end
     else 
       puts "Let's get started then..."
       # sleep(3)
@@ -227,37 +229,32 @@ class Game
   end #message_two
     
   def level_two
-  
-      puts "Level 2: Type the best answer!"
+    puts "Level 2: Type the best answer!"
 
-  
+    chance_count = 0
+    chances = 2
+
+    while chances != chance_count
+      puts "Who wrote the first computer program?"
+      @player_answer = gets.chomp
       level_two_answer = "Ada Lovelace"
-      # @player_answer = gets.chomp
-      chance_count = 0
-      chances = 2
+      chance_count += 1
+      if @player_answer != level_two_answer
+        puts "Incorrect! Try again!"
+      if chance_count == chances 
+        game_over
+        puts "Would you like to play again?"
+        play_again = gets.chomp
+        play_again_answer = ["y" , "yes" , "Yes" , "yes!" , "Yes!" , "YES" , "sure" , "Sure"]
 
-      while chances != chance_count
-        puts "Who wrote the first computer program?"
-        @player_answer = gets.chomp
-        chance_count += 1
-        if @player_answer != level_two_answer
-          puts "Incorrect! Try again!"
-          if chance_count == chances 
-            self.game_over
-    
-              puts "Would you like to play again?"
-              play_again_answer = ["y" , "yes" , "Yes" , "yes!" , "Yes!" , "YES" , "sure" , "Sure"]
-              play_again = gets.chomp
-  
-              break if play_again.include?(play_again_answer[0])
-              Game.again
-              end # chance_cont ==
-          elsif @player_answer == level_two_answer
-            correct_lvl_two
-            break # while changes !=
-          end # if, elsif
-      end # while
-      message_three
+      break if play_again.include?(play_again_answer[0])
+      end # chance_cont ==
+        elsif @player_answer == level_two_answer
+          correct_lvl_two
+          message_three 
+          break # while changes !=
+        end # if, elsif
+    end # while    
   end # level_two
 
   def message_three
@@ -269,7 +266,6 @@ class Game
   end  # message_three
 
   def level_three
-    # puts "Level 3: Tic Tac Toe"
     puts "Level 3: Advanced Guess the Word or Number"
     puts "You only get one try! So make your best guess!"
 
@@ -290,65 +286,11 @@ class Game
       puts "#{words_and_numbers}"
       puts "#{@player_answer} is the correct word and number combination!"
     end
-
+    no_answer = ["n", "no", "No", "no!", "No!", "NO"]
+    puts "Would you like to play again?"
+      @player_answer = gets.chomp
+      if @player_answer == no_answer[0]
+        exit
+      end
   end
-  #Game.new
-  # Game.again
 end # Game 
-
-
-
-
-
-
-
-
-
-# class Player 
-#   attr_accessor :player_name, :player_answer
-#   def initialize(player_name, player_answer)
-#     @player_name = name
-#     @player_answer = answer
-#   end
-# end
-
-# def player_name
-#   @player_name = gets.chomp
-# end
-
-# def player_answer 
-#   @player_answer_answer = gets.chomp
-# end
-
-
-# class Game 
-#   def initialize(name)
-#     @player_name = name
-
-#   end
-# end
-
-# player = Game.new
-
-# if user_answer == incorrect_answer
-#   puts first_question 
-# end
-
-# gets.chomp
-
-# 1.upto(10) do |number|
-# end
-
-# gets.chomp do |try_again|
-#   if user_answer == incorrect_answer
-#     puts first_question && gets.chomp
-#   end
-# end
-
-
-# class Game 
-#   def initialize 
-#     @player = []
-#   end
-
-# end
