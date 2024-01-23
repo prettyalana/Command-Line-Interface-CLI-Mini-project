@@ -1,19 +1,31 @@
 class Game
-  attr_accessor :name, :answer, :over
+  attr_accessor :name, :answer, :over, :yes, :no
 
   def initialize
     @player_name = name
     @player_answer = answer
     @over = false
+    @yes_answer = yes
+    @no_answer = no
   end
 
   def rules
-    puts "Here are the rules: 
-    Rule 1: Guess a word or name based on the question or randomly outputted string.
-    Rule 2: As you progress through the game the questions will get increasingly difficult and you will have less chances to try again.
-    Rule 4: If you exhaust your chances you lose the game.
-    Rule 5: If you complete all the levels you win the game.
-    Bonus rule: Have fun and enjoy! ;D"
+    puts "Before we get started, shall I explain to you the rules of the game? (y = yes/n = no)"
+    @player_answer = gets.chomp
+    @yes_answer = ["y", "yes", "Yes", "yes!", "Yes!", "YES", "sure", "Sure"]
+    @no_answer = ["n", "no", "No", "no!", "No!", "NO"]
+    if @yes_answer.include?(@player_answer)
+      puts "Here are the rules: 
+      Rule 1: Guess a word or name based on the question or randomly outputted string.
+      Rule 2: As you progress through the game the questions will get increasingly difficult and you will have less chances to try again.
+      Rule 4: If you exhaust your chances you lose the game.
+      Rule 5: If you complete all the levels you win the game.
+      Bonus rule: Have fun and enjoy! ;D"
+    elsif @no_answer.include?(@player_answer)
+      puts "Lets get started!"
+    else 
+      puts "Let's get started; I guess..."
+    end
   end 
 
   def game_over
@@ -26,7 +38,15 @@ class Game
             "
   end #game_over
 
+  def play_again
+    puts "Would you like to play again?"
+    @player_answer = gets.chomp
+    @yes_answer
+    @no_answer
+  end
+
   def winner
+    puts "#{@player_name} is a winner!" 
     puts "
      ▄         ▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄        ▄  ▄▄        ▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄ 
     ▐░▌       ▐░▌▐░░░░░░░░░░░▌▐░░▌      ▐░▌▐░░▌      ▐░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░▌
@@ -92,29 +112,7 @@ class Game
     @player_name = gets.chomp.capitalize
 
     puts "Hello #{@player_name}! It's very nice to meet you!"
-
-    puts "Before we get started, shall I explain to you the rules of the game? (y = yes/n = no)"
-    # puts "\n"
-    @player_answer = gets.chomp
-    # puts "\n"
-    yes_answer = ["y", "yes", "Yes", "yes!", "Yes!", "YES", "sure", "Sure"]
-    no_answer = ["n", "no", "No", "no!", "No!", "NO"]
-    if @player_answer.include?(yes_answer[0])
-      puts rules
-      # puts "\n"
-      # sleep(10)
-      puts "Let's get started!"
-      # puts "\n"
-      # sleep(3)
-    elsif @player_answer.include?(no_answer[0])
-      # puts "\n"
-      puts "Lets get started!"
-      # sleep(1)
-    else 
-      puts "Let's get started; I guess..."
-      # sleep(1)
-    end
-    # puts "\n"
+    rules
     practice_question
   end #play
   
@@ -192,10 +190,12 @@ class Game
         chance_count += 1
         if chance_count == chances 
           game_over
-          puts "Would you like to play again?"
-          play_again = gets.chomp
-          play_again_answer = ["y" , "yes" , "Yes" , "yes!" , "Yes!" , "YES" , "sure" , "Sure"]
-      break if play_again.include?(play_again_answer[0])
+          play_again
+        if @yes_answer.include?(@player_answer)
+          break
+        else
+          exit
+        end
       end
         elsif
           @player_answer == level_one_answer[0] || @player_answer == level_one_answer[1] || @player_answer == level_one_answer[2]
@@ -209,15 +209,15 @@ class Game
   def message_two
     puts "\n"
     puts "Are you ready for the next level?"
-    yes_answer = ["y", "yes", "Yes", "yes!", "Yes!", "YES", "sure", "Sure"]
-    no_answer = ["n", "no", "No", "no!", "No!", "NO"]
+    @yes_answer
+    @no_answer
     @player_answer = gets.chomp
-    if @player_answer.include?(yes_answer[0])
+    if @yes_answer.include?(@player_answer)
       puts "Awesome! Let's get started!"
-    elsif @player_answer.include?(no_answer[0])
+    elsif @no_answer.include?(@player_answer)
       puts "Are you sure?"
       @player_answer = gets.chomp
-      if @player_answer.include?(yes_answer[0])
+      if @yes_answer.include?(@player_answer)
         exit
       end
     else 
@@ -242,11 +242,12 @@ class Game
         puts "Incorrect! Try again!"
       if chance_count == chances 
         game_over
-        puts "Would you like to play again?"
-        play_again = gets.chomp
-        play_again_answer = ["y" , "yes" , "Yes" , "yes!" , "Yes!" , "YES" , "sure" , "Sure"]
-
-      break if play_again.include?(play_again_answer[0])
+        play_again
+        if @yes_answer.include?(@player_answer)
+          break
+        else
+          exit
+        end
       end # chance_cont ==
         elsif @player_answer == level_two_answer
           correct_lvl_two
@@ -285,10 +286,8 @@ class Game
       puts "#{words_and_numbers}"
       puts "#{@player_answer} is the correct word and number combination!"
     end
-    no_answer = ["n", "no", "No", "no!", "No!", "NO"]
-    puts "Would you like to play again?"
-      @player_answer = gets.chomp
-      if @player_answer == no_answer[0]
+    play_again
+      if @no_answer.include?(@player_answer)
         exit
       end
   end

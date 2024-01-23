@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require './game_ref'
+require './game'
 
 
 class TestGame < Minitest::Test
@@ -7,8 +7,8 @@ class TestGame < Minitest::Test
         game = Game.new
         assert_equal puts, game.rules, "Game rules method failed"
     end
-    def test_game_over
+    def test_play_again
         game = Game.new
-        assert_equal puts, game.game_over, "Game over method failed"
+        assert_equal puts, game.play_again, "Play again method failed"
     end
 end
