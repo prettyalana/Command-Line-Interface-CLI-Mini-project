@@ -29,6 +29,7 @@ class Game
   end 
 
   def game_over
+    puts "Sorry, #{@player_name} you lost the game."
     puts "                                                                                           
               _/_/_/    _/_/    _/      _/  _/_/_/_/        _/_/    _/      _/  _/_/_/_/  _/_/_/    
             _/        _/    _/  _/_/  _/_/  _/            _/    _/  _/      _/  _/        _/    _/   
@@ -269,12 +270,12 @@ class Game
     puts "Level 3: Advanced Guess the Word or Number"
     puts "You only get one try! So make your best guess!"
 
-    random_words = ["lovely", "pink", "ruby", "code",]
+    random_words = ["lovely", "pink", "ruby", "code"]
     random_numbers = rand(1..10).to_s
 
     words_and_numbers = "#{random_words.sample} #{random_numbers}"
     
-    puts "The random words are '#{random_words[0..3].join("', '")}' and the random numbers are from 1-10"
+    puts "The random words are '#{random_words[0..4].join("', '")}' and the random numbers are from 1-10"
     puts "What word and number combination do you think will appear?"
     @player_answer = gets.chomp
 

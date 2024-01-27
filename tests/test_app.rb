@@ -3,12 +3,14 @@ require './game'
 
 
 class TestGame < Minitest::Test
-    def test_game_rules
-        game = Game.new
-        assert_equal puts, game.rules, "Game rules method failed"
+    def setup
+        @game = Game.new
     end
-    def test_play_again
+    def test_game_over
+        assert_output(/Sorry, #{@player_name} you lost the game./) {@game.game_over} 
+    end
+    def test_winner
         game = Game.new
-        assert_equal puts, game.play_again, "Play again method failed"
+        assert_output (/#{@player_name} is a winner!/) {@game.winner}
     end
 end
