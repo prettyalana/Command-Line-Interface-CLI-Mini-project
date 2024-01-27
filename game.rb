@@ -275,7 +275,8 @@ class Game
 
     words_and_numbers = "#{random_words.sample} #{random_numbers}"
     
-    puts "The random words are '#{random_words[0..4].join("', '")}' and the random numbers are from 1-10"
+    puts "Random Words: The random words are #{random_words[0..2].join(", ")}, and #{random_words[3]}."
+    puts "Random Numbers: The random numbers are from 1-10."
     puts "What word and number combination do you think will appear?"
     @player_answer = gets.chomp
 
