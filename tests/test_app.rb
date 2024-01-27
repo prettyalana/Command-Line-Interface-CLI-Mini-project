@@ -11,6 +11,6 @@ class TestGame < Minitest::Test
     end
     def test_winner
         game = Game.new
-        assert_output (/#{@player_name} is a winner!/) {@game.winner}
+        assert_output(/#{@player_name} is a winner!/) {@game.winner}
     end
 end
